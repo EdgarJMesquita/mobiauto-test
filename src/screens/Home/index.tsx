@@ -60,6 +60,23 @@ export function Home({ navigation }: HomeScreenProps) {
     setYear(null);
   }
 
+  function handleChangeMaker(option: Option) {
+    if (option.codigo === maker?.codigo) {
+      return;
+    }
+    setMaker(option);
+    setModel(null);
+    setYear(null);
+  }
+
+  function handleChangeModel(option: Option) {
+    if (option.codigo === model?.codigo) {
+      return;
+    }
+    setModel(option);
+    setYear(null);
+  }
+
   return (
     <Background>
       <Title>Tabela Fipe</Title>
@@ -89,13 +106,13 @@ export function Home({ navigation }: HomeScreenProps) {
         <Select
           placeholder="Marca"
           value={maker}
-          onChange={setMaker}
+          onChange={handleChangeMaker}
           path={`${type}/marcas`}
         />
         <Select
           placeholder="Modelo"
           value={model}
-          onChange={setModel}
+          onChange={handleChangeModel}
           path={`${type}/marcas/${maker?.codigo}/modelos`}
           disabled={maker == null}
         />
