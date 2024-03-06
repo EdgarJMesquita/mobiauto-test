@@ -35,6 +35,12 @@ export function TechnicalFile({ info }: Props) {
           <ItemValue>{info.Combustivel ?? "Não disponível"}</ItemValue>
         </ItemLabel>
       </ItemContainer>
+      <ItemContainer>
+        <ItemLabel>
+          Código Fipe:{" "}
+          <ItemValue>{info.CodigoFipe ?? "Não disponível"}</ItemValue>
+        </ItemLabel>
+      </ItemContainer>
     </Container>
   );
 }
