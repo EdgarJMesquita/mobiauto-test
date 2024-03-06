@@ -8,37 +8,46 @@ import { Button } from "Components/Button";
 import { HomeScreenProps } from "Routes/routes";
 import { api } from "Services/api";
 import { Alert } from "react-native";
-
-type VehicleType = "carros" | "motos" | "caminhoes";
+import { formatCarName } from "Utils/formatCarName";
 
 export function Home({ navigation }: HomeScreenProps) {
-  const [type, setType] = useState<VehicleType>("carros");
+  const [type, setType] = useState<VehicleType>("CAR");
   const [maker, setMaker] = useState<Option | null>(null);
   const [model, setModel] = useState<Option | null>(null);
   const [year, setYear] = useState<Option | null>(null);
+  const [trim, setTrim] = useState<Option | null>(null);
+
   const [isLoading, setLoading] = useState(false);
 
-  const isButtonEnabled = [type, maker, model, year].every((it) => !!it);
+  const isButtonEnabled = [type, maker, model, year, trim].every((it) => !!it);
+
+  function parseType(_type: VehicleType) {
+    if (type === "CAR") return "carros";
+    if (type === "MOTOCYCLE") return "motos";
+    if (type === "TRUCK") return "caminhoes";
+
+    throw Error("Inválid type");
+  }
 
   async function onSubmit() {
     if (!maker) return;
     if (!model) return;
     if (!year) return;
+    if (!trim) return;
 
     try {
       if (isLoading) return;
       setLoading(true);
-      const path = `${type}/marcas/${maker.codigo}/modelos/${model?.codigo}/anos/${year?.codigo}`;
-      const { data } = await api.get(path);
-
+      const parsedType = parseType(type);
+      const formattedName = formatCarName(trim.name);
+      const path = `https://www.mobiauto.com.br/tabela-fipe/_next/data/pV_MkhniF1eSfLJIQcqt1/${parsedType}/${maker.name.toLocaleLowerCase()}/${model.name.toLocaleLowerCase()}/${
+        year.id
+      }/${formattedName}.json`;
+      const { data } = await api.get<PageProps>(path);
       setLoading(false);
 
       navigation.navigate("VehicleDetails", {
-        type,
-        maker,
-        model,
-        year,
-        info: data,
+        info: data.pageProps,
       });
     } catch (error) {
       setLoading(false);
@@ -67,20 +76,20 @@ export function Home({ navigation }: HomeScreenProps) {
       <Card style={boxShadow}>
         <Row>
           <Chip
-            selected={type === "carros"}
-            onPress={() => handleChangeType("carros")}
+            selected={type === "CAR"}
+            onPress={() => handleChangeType("CAR")}
           >
             Carro
           </Chip>
           <Chip
-            selected={type === "motos"}
-            onPress={() => handleChangeType("motos")}
+            selected={type === "MOTOCYCLE"}
+            onPress={() => handleChangeType("MOTOCYCLE")}
           >
             Moto
           </Chip>
           <Chip
-            selected={type === "caminhoes"}
-            onPress={() => handleChangeType("caminhoes")}
+            selected={type === "TRUCK"}
+            onPress={() => handleChangeType("TRUCK")}
           >
             Caminhão
           </Chip>
@@ -90,21 +99,28 @@ export function Home({ navigation }: HomeScreenProps) {
           placeholder="Marca"
           value={maker}
           onChange={setMaker}
-          path={`${type}/marcas`}
+          path={`search/api/vehicle/v1.0/${type}/makes?inProduction=false`}
         />
         <Select
           placeholder="Modelo"
           value={model}
           onChange={setModel}
-          path={`${type}/marcas/${maker?.codigo}/modelos`}
+          path={`search/api/vehicle/v1.0/${type}/models/id/${maker?.id}?inProduction=false`}
           disabled={maker == null}
         />
         <Select
           placeholder="Ano"
           value={year}
           onChange={setYear}
-          path={`${type}/marcas/${maker?.codigo}/modelos/${model?.codigo}/anos`}
+          path={`search/api/vehicle/v1.0/${type}/years/id/${model?.id}?inProduction=false`}
           disabled={model === null || maker === null}
+        />
+        <Select
+          placeholder="Versão"
+          value={trim}
+          onChange={setTrim}
+          path={`search/api/vehicle/v1.0/${type}/trims/id/${model?.id}/${year?.id}`}
+          disabled={model === null || maker === null || year === null}
         />
         <Button
           disabled={!isButtonEnabled}

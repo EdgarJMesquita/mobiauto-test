@@ -20,7 +20,9 @@ export function useAxiosInterceptor() {
                   error?.response?.data?.error
                 }\n Description: ${JSON.stringify(
                   error?.response?.data?.data
-                )}\n Route: ${error?.response?.config?.url}`
+                )}\n Route: ${error?.response?.config.baseURL}${
+                  error?.response?.config?.url
+                }`
               );
             }
           }

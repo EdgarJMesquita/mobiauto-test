@@ -12,11 +12,7 @@ import { VehicleDetails } from "Screens/VehicleDetails";
 type RootParamsList = {
   Home: undefined;
   VehicleDetails: {
-    type: "carros" | "motos" | "caminhoes";
-    maker: Option;
-    model: Option;
-    year: Option;
-    info: VehicleInfo;
+    info: PageProps["pageProps"];
   };
 };
 

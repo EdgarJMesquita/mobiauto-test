@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://parallelum.com.br/fipe/api/v1/";
+const baseURL = "https://api.mobiauto.com.br/";
 
 export const api = axios.create({
   baseURL,

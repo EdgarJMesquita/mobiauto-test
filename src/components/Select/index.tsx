@@ -18,11 +18,11 @@ import { Dimensions, TouchableOpacity } from "react-native";
 import { fetcher } from "Services/api";
 
 export type Option = {
-  codigo: string;
-  nome: string;
+  id: string;
+  name: string;
 };
 
-type ResponseType = Array<Option> | { modelos: Array<Option> };
+type ResponseType = Array<Option> | { years: Array<number> };
 
 type Props = {
   placeholder: string;
@@ -51,7 +51,8 @@ export function Select({
     if (Array.isArray(data)) {
       return data;
     }
-    return data.modelos;
+
+    return data.years.map((it) => ({ id: it.toString(), name: it.toString() }));
   }
 
   function closeModal() {
@@ -70,7 +71,7 @@ export function Select({
 
   function handleFilter(option: Option): boolean {
     if (!search) return true;
-    if (option.nome.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+    if (option.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
       return true;
     }
     return false;
@@ -81,7 +82,7 @@ export function Select({
   return (
     <>
       <Container onPress={openModal} style={{ opacity: disabled ? 0.5 : 1 }}>
-        <Text active={!!value}>{value?.nome ?? placeholder}</Text>
+        <Text active={!!value}>{value?.name ?? placeholder}</Text>
         <AntDesign
           name="caretdown"
           size={12}
@@ -117,7 +118,7 @@ export function Select({
           <Scroll>
             {adaptedData.map((it, index) => (
               <OptionItem onPress={() => handleOnSelected(it)} key={index}>
-                <OptionText>{it.nome}</OptionText>
+                <OptionText>{it.name}</OptionText>
               </OptionItem>
             ))}
             {!!search && adaptedData.length === 0 && (

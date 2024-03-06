@@ -19,7 +19,7 @@ export function VehicleDetails({
   route,
   navigation,
 }: VehicleDetailsScreenProps) {
-  const { info, maker, model, type, year } = route.params;
+  const { info } = route.params;
 
   return (
     <Background showPadding={false}>
@@ -30,17 +30,23 @@ export function VehicleDetails({
             <GobackText>Voltar</GobackText>
           </Row>
           <Title>
-            Tabela Fipe: Preço {info.Marca} {info.Modelo} {info.AnoModelo}
+            Tabela Fipe: Preço {info.trim.makeName} {info.trim.makeName}{" "}
+            {info.year}
           </Title>
           <PriceChip>
-            <Price>{info.Valor}</Price>
+            <Price>
+              {info.fipeInfo.price.toLocaleString("pt-br", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </Price>
           </PriceChip>
           <Subtitle>
             Este é o preço de compra do veículo Mês de referência:{" "}
-            {info.MesReferencia.toLocaleUpperCase()}
+            {info.fipeInfo.date.label}
           </Subtitle>
         </Padding>
-        <TechnicalFile info={info} />
+        {/* <TechnicalFile info={info} /> */}
       </Scroll>
     </Background>
   );
