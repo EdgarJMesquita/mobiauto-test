@@ -10,7 +10,7 @@ type VehicleInfo = {
   SiglaCombustivel: string;
 };
 
-type VehicleType = "CAR" | "MOTOCYCLE" | "TRUCK";
+type VehicleType = "CAR" | "MOTORCYCLE" | "TRUCK";
 
 type PageProps = {
   pageProps: {

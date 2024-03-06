@@ -23,7 +23,7 @@ export function Home({ navigation }: HomeScreenProps) {
 
   function parseType(_type: VehicleType) {
     if (type === "CAR") return "carros";
-    if (type === "MOTOCYCLE") return "motos";
+    if (type === "MOTORCYCLE") return "motos";
     if (type === "TRUCK") return "caminhoes";
 
     throw Error("Inválid type");
@@ -40,9 +40,12 @@ export function Home({ navigation }: HomeScreenProps) {
       setLoading(true);
       const parsedType = parseType(type);
       const formattedName = formatCarName(trim.name);
-      const path = `https://www.mobiauto.com.br/tabela-fipe/_next/data/pV_MkhniF1eSfLJIQcqt1/${parsedType}/${maker.name.toLocaleLowerCase()}/${model.name.toLocaleLowerCase()}/${
+      const baseURL =
+        "https://www.mobiauto.com.br/tabela-fipe/_next/data/pV_MkhniF1eSfLJIQcqt1";
+      const path = `${baseURL}/${parsedType}/${maker.name.toLocaleLowerCase()}/${model.name.toLocaleLowerCase()}/${
         year.id
       }/${formattedName}.json`;
+
       const { data } = await api.get<PageProps>(path);
       setLoading(false);
 
@@ -67,6 +70,32 @@ export function Home({ navigation }: HomeScreenProps) {
     setMaker(null);
     setModel(null);
     setYear(null);
+    setTrim(null);
+  }
+
+  function handleChangeMaker(option: Option) {
+    if (option.id === maker?.id) {
+      return;
+    }
+    setMaker(option);
+    setModel(null);
+    setYear(null);
+  }
+
+  function handleChangeModel(option: Option) {
+    if (option.id === model?.id) {
+      return;
+    }
+    setModel(option);
+    setYear(null);
+  }
+
+  function handleChangeYear(option: Option) {
+    if (option.id === year?.id) {
+      return;
+    }
+    setYear(option);
+    setTrim(null);
   }
 
   return (
@@ -82,8 +111,8 @@ export function Home({ navigation }: HomeScreenProps) {
             Carro
           </Chip>
           <Chip
-            selected={type === "MOTOCYCLE"}
-            onPress={() => handleChangeType("MOTOCYCLE")}
+            selected={type === "MOTORCYCLE"}
+            onPress={() => handleChangeType("MOTORCYCLE")}
           >
             Moto
           </Chip>
@@ -98,20 +127,20 @@ export function Home({ navigation }: HomeScreenProps) {
         <Select
           placeholder="Marca"
           value={maker}
-          onChange={setMaker}
           path={`search/api/vehicle/v1.0/${type}/makes?inProduction=false`}
+          onChange={handleChangeMaker}
         />
         <Select
           placeholder="Modelo"
           value={model}
-          onChange={setModel}
           path={`search/api/vehicle/v1.0/${type}/models/id/${maker?.id}?inProduction=false`}
+          onChange={handleChangeModel}
           disabled={maker == null}
         />
         <Select
           placeholder="Ano"
           value={year}
-          onChange={setYear}
+          onChange={handleChangeYear}
           path={`search/api/vehicle/v1.0/${type}/years/id/${model?.id}?inProduction=false`}
           disabled={model === null || maker === null}
         />

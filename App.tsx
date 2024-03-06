@@ -11,7 +11,6 @@ import { useCallback } from "react";
 import { Routes } from "./src/routes/routes";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/global/theme";
-import { Home } from "./src/screens/Home";
 import { useAxiosInterceptor } from "Hooks/useAxiosInterceptor";
 
 SplashScreen.preventAutoHideAsync();
@@ -38,7 +37,7 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <ThemeProvider theme={theme}>
-        <StatusBar style="auto" />
+        <StatusBar style="dark" />
         <Routes />
       </ThemeProvider>
     </View>

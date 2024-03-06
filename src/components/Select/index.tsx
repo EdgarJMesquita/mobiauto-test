@@ -81,7 +81,11 @@ export function Select({
 
   return (
     <>
-      <Container onPress={openModal} style={{ opacity: disabled ? 0.5 : 1 }}>
+      <Container
+        onPress={openModal}
+        style={{ opacity: disabled ? 0.5 : 1 }}
+        disabled={disabled}
+      >
         <Text active={!!value}>{value?.name ?? placeholder}</Text>
         <AntDesign
           name="caretdown"
@@ -115,7 +119,7 @@ export function Select({
             placeholder={placeholder}
             autoFocus
           />
-          <Scroll>
+          <Scroll keyboardShouldPersistTaps="handled">
             {adaptedData.map((it, index) => (
               <OptionItem onPress={() => handleOnSelected(it)} key={index}>
                 <OptionText>{it.name}</OptionText>

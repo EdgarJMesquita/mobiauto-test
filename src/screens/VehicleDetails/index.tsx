@@ -14,6 +14,9 @@ import { VehicleDetailsScreenProps } from "Routes/routes";
 import { AntDesign } from "@expo/vector-icons";
 import { theme } from "Global/theme";
 import { TechnicalFile } from "Components/TechnicalFile";
+import { PriceHistoryChart } from "Components/PriceHistoryChart";
+import { TrimsFipeHistory } from "Components/TrimsFipeHistory";
+import { formatToBRL } from "Utils/formatToBRL";
 
 export function VehicleDetails({
   route,
@@ -23,7 +26,7 @@ export function VehicleDetails({
 
   return (
     <Background showPadding={false}>
-      <Scroll>
+      <Scroll contentContainerStyle={{ paddingBottom: 100 }}>
         <Padding>
           <Row onPress={navigation.goBack}>
             <AntDesign name="left" size={14} color={theme.colors.title} />
@@ -34,19 +37,16 @@ export function VehicleDetails({
             {info.year}
           </Title>
           <PriceChip>
-            <Price>
-              {info.fipeInfo.price.toLocaleString("pt-br", {
-                style: "currency",
-                currency: "BRL",
-              })}
-            </Price>
+            <Price>{formatToBRL(info.fipeInfo.price)}</Price>
           </PriceChip>
           <Subtitle>
             Este é o preço de compra do veículo Mês de referência:{" "}
             {info.fipeInfo.date.label}
           </Subtitle>
         </Padding>
-        {/* <TechnicalFile info={info} /> */}
+        <TrimsFipeHistory info={info} />
+        <PriceHistoryChart history={info.fipeHistory} />
+        <TechnicalFile info={info} />
       </Scroll>
     </Background>
   );
