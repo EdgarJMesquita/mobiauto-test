@@ -1,9 +1,11 @@
 import styled from "styled-components/native";
 import { SelectedProps } from ".";
 
-export const Touchable = styled.TouchableOpacity<SelectedProps>`
+export const ChipContainer = styled.View<SelectedProps>`
   border-radius: 16px;
   padding: 3px 12px;
+
+  margin: 8px;
 
   background-color: ${({ theme, selected }) =>
     selected

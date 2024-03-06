@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
-import { ChipText, Touchable } from "./styles";
+import { ChipText, ChipContainer } from "./styles";
+import { TouchableOpacity } from "react-native";
 
 export type SelectedProps = {
   selected: boolean;
@@ -12,8 +13,10 @@ export type Props = {
 
 export function Chip({ selected, children, onPress }: Props) {
   return (
-    <Touchable selected={selected} onPress={onPress}>
-      <ChipText selected={selected}>{children}</ChipText>
-    </Touchable>
+    <TouchableOpacity onPress={onPress}>
+      <ChipContainer selected={selected}>
+        <ChipText selected={selected}>{children}</ChipText>
+      </ChipContainer>
+    </TouchableOpacity>
   );
 }

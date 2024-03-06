@@ -19,7 +19,7 @@ export const Subtitle = styled.Text`
 
 export const Card = styled.View`
   background-color: ${({ theme }) => theme.colors.onBackground};
-  padding: 16px;
+  padding: 8px 16px 16px;
   elevation: 2;
   border-radius: 4px;
   margin-top: 16px;
@@ -29,5 +29,5 @@ export const Row = styled.View`
   flex-direction: row;
   justify-content: space-around;
   padding: 0 16px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 `;
