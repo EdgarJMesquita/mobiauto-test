@@ -71,3 +71,29 @@ Reconheço melhorias e refatorações que podem melhorar o código, porém devid
 - **src/services**: Contém configuração para conexão com a API.
 
 - **src/utils**: Contém utilitários que podem ser reutilizados.
+
+# Instruções
+
+## 1. Clonar projeto
+
+```bash
+ $ git clone https://github.com/EdgarJMesquita/mobiauto-test.git
+```
+
+## 2. Ter Node instalado
+
+## 3. Instalar pacotes
+
+```bash
+ $ yarn
+```
+
+## 4. Iniciar Servidor Metro
+
+```bash
+ $ yarn start
+```
+
+#
+
+obs: não há necessidade de gerar build de debug, basta usar o Expo Go.
