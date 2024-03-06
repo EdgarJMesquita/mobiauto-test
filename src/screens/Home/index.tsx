@@ -80,6 +80,7 @@ export function Home({ navigation }: HomeScreenProps) {
     setMaker(option);
     setModel(null);
     setYear(null);
+    setTrim(null);
   }
 
   function handleChangeModel(option: Option) {
@@ -88,6 +89,7 @@ export function Home({ navigation }: HomeScreenProps) {
     }
     setModel(option);
     setYear(null);
+    setTrim(null);
   }
 
   function handleChangeYear(option: Option) {
