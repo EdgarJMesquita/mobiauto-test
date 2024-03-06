@@ -7,7 +7,7 @@ type Props = {
 export const Touchable = styled.TouchableOpacity<Props>`
   border-radius: 4px;
   width: 100%;
-  min-height: 32px;
+  min-height: 40px;
 
   align-items: center;
   justify-content: center;
