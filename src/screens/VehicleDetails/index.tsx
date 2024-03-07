@@ -33,15 +33,15 @@ export function VehicleDetails({
             <GobackText>Voltar</GobackText>
           </Row>
           <Title>
-            Tabela Fipe: Preço {info.trim.makeName} {info.trim.makeName}{" "}
+            Tabela Fipe: Preço {info.trim.makeName} {info.trim.modelName}{" "}
             {info.year}
           </Title>
           <PriceChip>
-            <Price>{formatToBRL(info.fipeInfo.price)}</Price>
+            <Price>{formatToBRL(info.fipeInfo?.price)}</Price>
           </PriceChip>
           <Subtitle>
             Este é o preço de compra do veículo Mês de referência:{" "}
-            {info.fipeInfo.date.label}
+            {info.fipeInfo?.date?.label}
           </Subtitle>
         </Padding>
         <TrimsFipeHistory info={info} />

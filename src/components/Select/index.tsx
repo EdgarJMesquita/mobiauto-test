@@ -101,6 +101,7 @@ export function Select({
         onModalHide={closeModal}
         onBackdropPress={closeModal}
         avoidKeyboard
+        useNativeDriver
       >
         <ModalContainer style={{ height: height * 0.5 }}>
           <Row>

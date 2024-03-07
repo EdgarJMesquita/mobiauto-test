@@ -83,17 +83,17 @@ type PageProps = {
       lifestyles: Array<any>;
     };
     trimNameSlug: string;
-    fipeInfo: {
+    fipeInfo?: {
       fipeId: string;
-      date: {
-        month: number;
-        year: number;
-        epoch: number;
-        label: string;
+      date?: {
+        month?: number;
+        year?: number;
+        epoch?: number;
+        label?: string;
       };
-      price: number;
+      price?: number;
     };
-    fipeHistory: Array<{
+    fipeHistory?: Array<{
       fipeId: string;
       date: {
         month: number;
@@ -267,7 +267,7 @@ type PageProps = {
       cacheName: string;
       writerImageId?: number;
     }>;
-    mostSearchedVehicles: Array<{
+    mostSearchedVehicles?: Array<{
       id: number;
       name: string;
       makeId: string;
@@ -286,14 +286,14 @@ type PageProps = {
       bodystyleName: string;
       minFipePrice: number;
       hasFipePrice: boolean;
-      fipePriceRange: Array<{
+      fipePriceRange?: Array<{
         year: number;
         minPrice: number;
         maxPrice: number;
       }>;
       videos: Array<any>;
     }>;
-    relatedTrimsFipeInfo: Array<{
+    relatedTrimsFipeInfo?: Array<{
       id: number;
       name: string;
       makeName: string;
