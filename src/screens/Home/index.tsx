@@ -41,7 +41,7 @@ export function Home({ navigation }: HomeScreenProps) {
       const parsedType = parseType(type);
       const formattedName = formatCarName(trim.name);
       const baseURL =
-        "https://www.mobiauto.com.br/tabela-fipe/_next/data/pV_MkhniF1eSfLJIQcqt1";
+        "https://www.mobiauto.com.br/tabela-fipe/_next/data/sZ3jzXUtHqqdBM8n87ESL";
       const path = `${baseURL}/${parsedType}/${maker.name.toLocaleLowerCase()}/${model.name.toLocaleLowerCase()}/${
         year.id
       }/${formattedName}.json`;
